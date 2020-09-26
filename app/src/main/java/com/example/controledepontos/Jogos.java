@@ -3,7 +3,9 @@ package com.example.controledepontos;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +34,7 @@ public class Jogos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jogos);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Seus Jogos");
 
         jogosDAO = new JogosDAO(this);
         txtPontuacaoJogo = findViewById(R.id.txtPontuacaoJogo);
@@ -70,7 +73,7 @@ public class Jogos extends AppCompatActivity {
         lista_jogos.setAdapter(adapter_jogos);
     }
 
-    public void  adicionarJogo(View view){
+    public void adicionarJogo(View view){
         Jogo jogo = new Jogo();
         int pontuacao = Integer.parseInt(txtPontuacaoJogo.getText().toString());
 
@@ -82,8 +85,43 @@ public class Jogos extends AppCompatActivity {
         jogo.setPontuacao(pontuacao);
 
         jogosDAO.inserirJogo(jogo);
+        verificaPontuacao(pontuacao);
         carregarJogos();
+        txtPontuacaoJogo.setText(null);
 
+    }
+
+    public void verificaPontuacao(int pontuacao){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.example.controledepontos",Context.MODE_PRIVATE);
+        int minimo_temporada= sharedPreferences.getInt("minimo_temporada",0);
+        int maximo_temporada= sharedPreferences.getInt("maximo_temporada",0);
+        int quebra_recorde_minimo= sharedPreferences.getInt("quebra_recorde_minimo",0);
+        int quebra_recorde_maximo= sharedPreferences.getInt("quebra_recorde_maximo",0);
+        boolean primeiro_jogo = sharedPreferences.getBoolean("primeiro_jogo",true);
+
+        if(primeiro_jogo){
+            if(pontuacao>0){
+                maximo_temporada=pontuacao;
+                minimo_temporada=pontuacao;
+                sharedPreferences.edit().putInt("maximo_temporada",maximo_temporada).apply();
+                sharedPreferences.edit().putInt("minimo_temporada",maximo_temporada).apply();
+            }
+            sharedPreferences.edit().putBoolean("primeiro_jogo",false).apply();
+        }
+        else{
+            if((pontuacao>minimo_temporada)&&(pontuacao>maximo_temporada)){
+                maximo_temporada=pontuacao;
+                quebra_recorde_maximo++;
+                sharedPreferences.edit().putInt("maximo_temporada",maximo_temporada).apply();
+                sharedPreferences.edit().putInt("quebra_recorde_maximo",quebra_recorde_maximo).apply();
+            }
+            else if((pontuacao<maximo_temporada)&&(pontuacao<minimo_temporada)){
+                minimo_temporada=pontuacao;
+                quebra_recorde_minimo++;
+                sharedPreferences.edit().putInt("minimo_temporada",minimo_temporada).apply();
+                sharedPreferences.edit().putInt("quebra_recorde_minimo",quebra_recorde_minimo).apply();
+            }
+        }
     }
 
 }

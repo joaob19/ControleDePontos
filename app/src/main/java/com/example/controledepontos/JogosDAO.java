@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -24,10 +25,9 @@ public class JogosDAO {
 
     public long inserirJogo(Jogo jogo){
         ContentValues values = new ContentValues();
-        values.put("id",jogo.getId());
         values.put("pontuacao",jogo.getPontuacao());
         values.put("data",jogo.getData());
-        return this.banco.insert("jogos",null, values);
+        return banco.insert("jogos",null, values);
     }
 
     public void atualizarJogo(Jogo jogo){

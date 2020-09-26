@@ -4,60 +4,145 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
 
+    <ImageButton
+        android:id="@+id/logo_home"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        android:src="@drawable/home_logo" />
+
     <TextView
-        android:layout_width="wrap_content"
         android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/logo_home"
         android:text="Estatísticas dos jogos"
         android:gravity="center"
+        android:textColor="@color/Branco"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_marginTop="20dp"/>
 
     <TextView
-        android:id="@+id/txt_min_temporada"
-        android:layout_width="wrap_content"
+        android:id="@+id/txt1"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
         android:text="Mínimo da temporada:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_below="@id/txtTitulo"
+        android:layout_marginTop="50dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:textColor="@color/Branco"
+        android:background="#83A9A9A9"
+        />
+
+    <TextView
+        android:id="@+id/txt_min_temporada"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/txt1"
+        android:layout_marginLeft="40dp"
+        android:text="XX"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/Branco"
+        android:background="#83A9A9A9"
+        />
+
+    <TextView
+        android:id="@+id/txt2"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtTitulo"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentRight="true"
+        android:text="Máximo da temporada:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:gravity="center"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="25dp"
+        android:textColor="@color/Branco"
+        android:background="#83A9A9A9"
         />
 
     <TextView
         android:id="@+id/txt_max_temporada"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@id/txt2"
+        android:layout_marginLeft="25dp"
+        android:text="XX"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/Branco"
+        android:background="#83A9A9A9"
+        />
+
+    <TextView
+        android:id="@+id/txt3"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:text="Máximo da temporada:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_below="@+id/txt_min_temporada"
+        android:layout_below="@id/txt_min_temporada"
+        android:layout_marginTop="100dp"
+        android:text="Quebras de recorde mínimo:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:textColor="@color/Branco"
+        android:background="#83A9A9A9"
         />
 
     <TextView
         android:id="@+id/txt_recorde_minimo"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="40dp"
+        android:text="XX"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_below="@+id/txt3"
+        android:textColor="@color/Branco"
+        android:background="#83A9A9A9"
+        />
+
+    <TextView
+        android:id="@+id/txt4"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:text="Quebra recorde mínimo:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_below="@+id/txt_max_temporada"
+        android:layout_below="@id/txt_max_temporada"
+        android:layout_marginTop="100dp"
+        android:layout_alignParentRight="true"
+        android:text="Quebras de recorde máximo:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:gravity="center"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="25dp"
+        android:textColor="@color/Branco"
+        android:background="#83A9A9A9"
         />
 
     <TextView
         android:id="@+id/txt_recorde_maximo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:text="Quebra recorde máximo:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_below="@+id/txt_recorde_minimo"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="40dp"
+        android:text="XX"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_below="@id/txt4"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/Branco"
+        android:background="#83A9A9A9"
         />
 
     <Button
@@ -70,5 +155,5 @@
         android:textColor="#fff"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/txt_recorde_maximo"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="100dp"/>
 </RelativeLayout>
