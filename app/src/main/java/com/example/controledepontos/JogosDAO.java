@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -27,6 +26,7 @@ public class JogosDAO {
         ContentValues values = new ContentValues();
         values.put("pontuacao",jogo.getPontuacao());
         values.put("data",jogo.getData());
+        values.put("titulo",jogo.getTitulo());
         return banco.insert("jogos",null, values);
     }
 
@@ -35,19 +35,21 @@ public class JogosDAO {
         values.put("id",jogo.getId());
         values.put("pontuacao",jogo.getPontuacao());
         values.put("data",jogo.getData());
+        values.put("titulo",jogo.getTitulo());
         String[] id = new String[]{Integer.toString(jogo.getId())};
         banco.update("jogos", values, "id=?", id);
     }
 
     public ArrayList obterJogos(){
         ArrayList<Jogo> jogos = new ArrayList<>();
-        Cursor cursor = banco.query("jogos", new String[]{"id","pontuacao","data"}, (String)null, (String[])null, (String)null, (String)null, (String)null);
+        Cursor cursor = banco.query("jogos", new String[]{"id","pontuacao","data","titulo"}, (String)null, (String[])null, (String)null, (String)null, (String)null);
 
         while (cursor.moveToNext()){
             Jogo jogo = new Jogo();
             jogo.setId(cursor.getInt(0));
             jogo.setPontuacao(cursor.getInt(1));
             jogo.setData((cursor.getString(2)));
+            jogo.setTitulo((cursor.getString(3)));
             jogos.add(jogo);
         }
 

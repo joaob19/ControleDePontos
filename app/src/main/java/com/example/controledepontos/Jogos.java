@@ -3,6 +3,7 @@ package com.example.controledepontos;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -20,13 +22,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class Jogos extends AppCompatActivity {
+public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCriarJogoListener {
 
     ArrayList<Jogo> array_jogos;
     ArrayAdapter adapter_jogos = null;
     JogosDAO jogosDAO;
-
-    EditText txtPontuacaoJogo;
+    TextView txtMensagem;
     ListView lista_jogos;
 
     @Override
@@ -36,10 +37,11 @@ public class Jogos extends AppCompatActivity {
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Seus Jogos");
 
+        txtMensagem = findViewById(R.id.txtMensagemJogos);
         jogosDAO = new JogosDAO(this);
-        txtPontuacaoJogo = findViewById(R.id.txtPontuacaoJogo);
         lista_jogos = findViewById(R.id.lista_jogos);
         carregarJogos();
+        verificarJogos();
         lista_jogos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -56,6 +58,7 @@ public class Jogos extends AppCompatActivity {
                         JogosDAO jogosDAO = new JogosDAO(Jogos.this);
                         jogosDAO.excluirJogo(array_jogos.get(position));
                         carregarJogos();
+                        verificarJogos();
                         Toast.makeText(Jogos.this, "Jogo excluído.", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -67,6 +70,17 @@ public class Jogos extends AppCompatActivity {
 
     }
 
+    private void verificarJogos() {
+
+        if(array_jogos.size()>0){
+            txtMensagem.setText(null);
+        }
+        else{
+            txtMensagem.setText(R.string.mensagem_jogos);
+        }
+
+    }
+
     public void carregarJogos(){
         array_jogos = jogosDAO.obterJogos();
         adapter_jogos = new AdapterJogo(this,array_jogos);
@@ -74,21 +88,8 @@ public class Jogos extends AppCompatActivity {
     }
 
     public void adicionarJogo(View view){
-        Jogo jogo = new Jogo();
-        int pontuacao = Integer.parseInt(txtPontuacaoJogo.getText().toString());
-
-        Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        String data = df.format(c);
-
-        jogo.setData(data);
-        jogo.setPontuacao(pontuacao);
-
-        jogosDAO.inserirJogo(jogo);
-        verificaPontuacao(pontuacao);
-        carregarJogos();
-        txtPontuacaoJogo.setText(null);
-
+        DialogCriarJogo dialogCriarJogo = new DialogCriarJogo();
+        dialogCriarJogo.show(getSupportFragmentManager(),"Criar jogo");
     }
 
     public void verificaPontuacao(int pontuacao){
@@ -104,7 +105,7 @@ public class Jogos extends AppCompatActivity {
                 maximo_temporada=pontuacao;
                 minimo_temporada=pontuacao;
                 sharedPreferences.edit().putInt("maximo_temporada",maximo_temporada).apply();
-                sharedPreferences.edit().putInt("minimo_temporada",maximo_temporada).apply();
+                sharedPreferences.edit().putInt("minimo_temporada",minimo_temporada).apply();
             }
             sharedPreferences.edit().putBoolean("primeiro_jogo",false).apply();
         }
@@ -124,4 +125,10 @@ public class Jogos extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void salvarJogo(Jogo jogo) {
+        jogosDAO.inserirJogo(jogo);
+        carregarJogos();
+        verificarJogos();
+    }
 }

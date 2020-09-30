@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Controle de pontos</string>
+    <string name="mensagem_jogos">Você ainda não possui nenhum jogo cadastrado. para adicionar um novo jogo clique no botão adionar jogo na parte inferior da tela.</string>
 </resources>

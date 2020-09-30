@@ -30,11 +30,13 @@ public class AdapterJogo extends ArrayAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.layout_jogo,null);
 
-        TextView txtTitulo = view.findViewById(R.id.txtDataJogo);
+        TextView txtTitulo = view.findViewById(R.id.txtTituloJogo);
+        TextView txtData = view.findViewById(R.id.txtDataJogo);
         TextView txtPontuacao = view.findViewById(R.id.txtPontosDoJogo);
 
-        txtTitulo.setText("Jogo do dia "+ jogos.get(position).getData());
+        txtTitulo.setText(jogos.get(position).getTitulo());
         txtPontuacao.setText("Pontuação: "+ jogos.get(position).getPontuacao());
+        txtData.setText(jogos.get(position).getData());
 
         return view;
     }

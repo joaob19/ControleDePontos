@@ -7,34 +7,15 @@
     android:background="@drawable/background"
     tools:context=".Jogos">
 
-    <EditText
-        android:id="@+id/txtPontuacaoJogo"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:hint="Digite a pontuação do novo jogo"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        android:inputType="numberDecimal"
-        android:digits="0123456789"
-        android:layout_marginRight="5dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="5dp"
-        android:textColorHint="@color/Branco"
-        android:textColor="@color/Branco"
-        android:foregroundTint="@color/Branco"
-        android:backgroundTint="@color/Branco"
-        />
-
     <Button
         android:id="@+id/btnAddJogo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:backgroundTint="#a9a9a9"
+        android:backgroundTint="#83A9A9A9"
         android:textColor="#fff"
         android:onClick="adicionarJogo"
-        android:text="add"
-        android:layout_toRightOf="@id/txtPontuacaoJogo"
+        android:text="Adicionar novo jogo"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="10dp"/>
 
@@ -45,6 +26,15 @@
         android:layout_above="@id/btnAddJogo"
         android:layout_marginHorizontal="5dp"
         android:layout_marginVertical="8dp"/>
+
+    <TextView
+        android:id="@+id/txtMensagemJogos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/Branco"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
 
 </RelativeLayout>

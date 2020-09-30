@@ -10,12 +10,12 @@ public class Conexao extends SQLiteOpenHelper {
     private static final int versaoBanco = 1;
 
     public Conexao(Context context) {
-        super(context, "Banco", (SQLiteDatabase.CursorFactory)null, 1);
+        super(context, nomeDoBanco, (SQLiteDatabase.CursorFactory)null, versaoBanco);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table jogos(id integer primary key,pontuacao integer,data varchar(20))");
+        db.execSQL("create table jogos(id integer primary key,titulo varchar(50),pontuacao integer,data varchar(20))");
     }
 
     @Override

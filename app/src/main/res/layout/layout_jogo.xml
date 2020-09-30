@@ -4,12 +4,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/txtDataJogo"
+        android:id="@+id/txtTituloJogo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#83A9A9A9"
-        android:padding="5dp"
-        android:text="Jogo do dia xx/xx/xxxx"
+        android:padding="2dp"
+        android:text="Titulo"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/Branco" />
 
@@ -18,9 +18,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#83A9A9A9"
-        android:padding="8dp"
+        android:padding="2dp"
         android:text="Pontuação: xx"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/Branco" />
+
+    <TextView
+        android:id="@+id/txtDataJogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#83A9A9A9"
+        android:padding="2dp"
+        android:text="Jogo do dia xx/xx/xxxx"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/Branco" />
 
 </LinearLayout>

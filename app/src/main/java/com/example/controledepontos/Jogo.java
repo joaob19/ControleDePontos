@@ -3,7 +3,15 @@ package com.example.controledepontos;
 public class Jogo {
 
     int id,pontuacao;
-    String data;
+    String data,titulo;
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
     public String getData() {
         return data;
