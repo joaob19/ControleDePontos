@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         txt_minimo_temporada.setText(Integer.toString(minimo_temporada));
         txt_maximo_temporada.setText(Integer.toString(maximo_temporada));
         txt_quebra_recorde_minimo.setText(Integer.toString(quebra_recorde_minimo));
-        txt_quebra_recorde_maximo.setText(Integer.toString(quebra_recorde_minimo));
+        txt_quebra_recorde_maximo.setText(Integer.toString(quebra_recorde_maximo));
     }
 
     @Override
