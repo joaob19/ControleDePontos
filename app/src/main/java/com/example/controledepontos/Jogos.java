@@ -77,9 +77,19 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
         }
         else{
             txtMensagem.setText(R.string.mensagem_jogos);
+            zerarEstatisticas();
         }
 
     }
+
+    public void zerarEstatisticas(){
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.example.controledepontos",Context.MODE_PRIVATE);
+        sharedPreferences.edit().putInt("maximo_temporada",0).apply();
+        sharedPreferences.edit().putInt("minimo_temporada",0).apply();
+        sharedPreferences.edit().putInt("quebra_recorde_minimo",0).apply();
+        sharedPreferences.edit().putInt("quebra_recorde_maximo",0).apply();
+    }
+
 
     public void carregarJogos(){
         array_jogos = jogosDAO.obterJogos();
@@ -128,6 +138,7 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
     @Override
     public void salvarJogo(Jogo jogo) {
         jogosDAO.inserirJogo(jogo);
+        verificaPontuacao(jogo.getPontuacao());
         carregarJogos();
         verificarJogos();
     }
