@@ -41,7 +41,6 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
         jogosDAO = new JogosDAO(this);
         lista_jogos = findViewById(R.id.lista_jogos);
         carregarJogos();
-        verificarJogos();
         lista_jogos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -49,7 +48,6 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
                 AlertDialog.Builder adb= new AlertDialog.Builder(Jogos.this);
                 adb.setTitle("Excluir jogo");
                 adb.setMessage("Deseja excluir o registro desse jogo?");
-                final int positionToMove = position;
                 adb.setNegativeButton("NÂo",null);
                 adb.setPositiveButton("SIM",new AlertDialog.OnClickListener(){
 
@@ -58,12 +56,10 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
                         JogosDAO jogosDAO = new JogosDAO(Jogos.this);
                         jogosDAO.excluirJogo(array_jogos.get(position));
                         carregarJogos();
-                        verificarJogos();
                         Toast.makeText(Jogos.this, "Jogo excluído.", Toast.LENGTH_SHORT).show();
                     }
                 });
                 adb.show();
-
                 return true;
             }
         });
@@ -71,7 +67,6 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
     }
 
     private void verificarJogos() {
-
         if(array_jogos.size()>0){
             txtMensagem.setText(null);
         }
@@ -80,6 +75,24 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
             zerarEstatisticas();
         }
 
+    }
+
+    public void limparDados(View view){
+        AlertDialog.Builder adb= new AlertDialog.Builder(Jogos.this);
+        adb.setTitle("Limpar dados");
+        adb.setMessage("Se você desejar limpar os dados, todos os dados incluindo jogos e estatísticas serão apagados.");
+        adb.setNegativeButton("NÂo",null);
+        adb.setPositiveButton("SIM",new AlertDialog.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                zerarEstatisticas();
+                jogosDAO.limparJogos();
+                carregarJogos();
+                Toast.makeText(Jogos.this, "Todos os dados foram limpos com sucesso!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        adb.show();
     }
 
     public void zerarEstatisticas(){
@@ -95,6 +108,7 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
         array_jogos = jogosDAO.obterJogos();
         adapter_jogos = new AdapterJogo(this,array_jogos);
         lista_jogos.setAdapter(adapter_jogos);
+        verificarJogos();
     }
 
     public void adicionarJogo(View view){
@@ -140,6 +154,5 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
         jogosDAO.inserirJogo(jogo);
         verificaPontuacao(jogo.getPontuacao());
         carregarJogos();
-        verificarJogos();
     }
 }

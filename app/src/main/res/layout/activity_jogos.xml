@@ -8,16 +8,29 @@
     tools:context=".Jogos">
 
     <Button
-        android:id="@+id/btnAddJogo"
+        android:id="@+id/btnLimparDados"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:backgroundTint="#83A9A9A9"
+        android:textColor="#fff"
+        android:text="Limpar dados"
+        android:onClick="limparDados"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"/>
+
+    <Button
+        android:id="@+id/btnAddJogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnLimparDados"
         android:backgroundTint="#83A9A9A9"
         android:textColor="#fff"
         android:onClick="adicionarJogo"
         android:text="Adicionar novo jogo"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="10dp"/>
+
 
     <ListView
         android:layout_width="match_parent"

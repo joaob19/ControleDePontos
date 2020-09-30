@@ -56,4 +56,8 @@ public class JogosDAO {
         return jogos;
     }
 
+    public  void limparJogos(){
+        banco.execSQL("delete from jogos");
+    }
+
 }
