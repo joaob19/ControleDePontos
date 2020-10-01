@@ -44,7 +44,6 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
         lista_jogos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-
                 AlertDialog.Builder adb= new AlertDialog.Builder(Jogos.this);
                 adb.setTitle("Excluir jogo");
                 adb.setMessage("Deseja excluir o registro desse jogo?");
@@ -101,6 +100,7 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
         sharedPreferences.edit().putInt("minimo_temporada",0).apply();
         sharedPreferences.edit().putInt("quebra_recorde_minimo",0).apply();
         sharedPreferences.edit().putInt("quebra_recorde_maximo",0).apply();
+        sharedPreferences.edit().putBoolean("primeiro_jogo",true).apply();
     }
 
 
