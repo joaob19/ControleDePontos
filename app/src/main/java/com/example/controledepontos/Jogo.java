@@ -1,5 +1,7 @@
 package com.example.controledepontos;
 
+//Esta é a classe do objeto Jogo, contendo seus atributos e seus respectivos getters e setters.
+
 public class Jogo {
 
     int id,pontuacao;

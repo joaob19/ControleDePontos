@@ -22,6 +22,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+//Essa é a classe responsável por exibir e adicionar novos jogos.
+//Dentro dessa classe também há vários métodos responsaveis por fazer requisições e verificações de dados.
 public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCriarJogoListener {
 
     ArrayList<Jogo> array_jogos;
@@ -30,6 +32,7 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
     TextView txtMensagem;
     ListView lista_jogos;
 
+    //o método OnCreate é responsével por abrir a tela "Jogos" e atribuir funções ao compotenentes da tela.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,8 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
         jogosDAO = new JogosDAO(this);
         lista_jogos = findViewById(R.id.lista_jogos);
         carregarJogos();
+
+        //Esse método exibirá uma caixa de dialogo perguntando se o usuário deseja apagar um jogo após ficar pressionando o mesmo por algum tempo.
         lista_jogos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -65,6 +70,8 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
 
     }
 
+    //Esse método verifica se há algum jogo adionado no banco. Caso não haja nenhum jogo adionado, será exibida uma mensagem instrucionando o usuário a adicionar um jogo.
+    //TAmbé serão limpos todos os dados do bancoe as estatisticas da temporada caso não haja nenhum jogo adicionado no banco.
     private void verificarJogos() {
         if(array_jogos.size()>0){
             txtMensagem.setText(null);
@@ -76,6 +83,7 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
 
     }
 
+    //Esse método exibirá uma caixa de dialogo perguntando se o usuário deseja apagar todos os dados do aplicativo, comojogos e recorder.
     public void limparDados(View view){
         AlertDialog.Builder adb= new AlertDialog.Builder(Jogos.this);
         adb.setTitle("Limpar dados");
@@ -94,6 +102,8 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
         adb.show();
     }
 
+    //Este método é responsavel por zerar todas as estatísticas da temporada, zerando as informações que foram salvas em SharedPreferences.
+    //Por as estatísticas serem algo simples, reseolvi salva-las como objetos chave-valor aoinvés de criar uma tabela nova para salvar poucos dados.
     public void zerarEstatisticas(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.example.controledepontos",Context.MODE_PRIVATE);
         sharedPreferences.edit().putInt("maximo_temporada",0).apply();
@@ -103,7 +113,8 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
         sharedPreferences.edit().putBoolean("primeiro_jogo",true).apply();
     }
 
-
+    //Esse método é responsávelpor carregar os jogos contidos no banco. Este método popula um ArrayList com os jogos salvos e então cria um adaptador para a lista de exibição.
+    //O adaptador é reponsavel por dizer como cada linha da lista apresentará as informações do objeto.
     public void carregarJogos(){
         array_jogos = jogosDAO.obterJogos();
         adapter_jogos = new AdapterJogo(this,array_jogos);
@@ -111,11 +122,16 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
         verificarJogos();
     }
 
+    //Método responsável por criar uma janela onde seráo inseridos os dados para adionar um novo jogo.
+    //Esta janela é o "DialogCriarJogo"
     public void adicionarJogo(View view){
         DialogCriarJogo dialogCriarJogo = new DialogCriarJogo();
         dialogCriarJogo.show(getSupportFragmentManager(),"Criar jogo");
     }
 
+    //Esse método é responsável por fazer uma verificação antes de salvar um novo jogo no banco.
+    //Essa verificação consiste em verificar se é o primeiro jog, e se a pontuação quebrou algum recorde.
+    //Após as verificações forem feitas, as estatísticas da temporada são atualizadas.
     public void verificaPontuacao(int pontuacao){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.example.controledepontos",Context.MODE_PRIVATE);
         int minimo_temporada= sharedPreferences.getInt("minimo_temporada",0);
@@ -149,6 +165,8 @@ public class Jogos extends AppCompatActivity implements DialogCriarJogo.DialogCr
         }
     }
 
+    //Interface que recebe um jogo após o botão adionar do DialogCriarJogo ser acionado.
+    //Após receber um objeto jogo, ele é salvo no banco de dados, sua pontuação é verificada para saber se ele quebrou algum recorde e então, a lista de jogos é atualizada.
     @Override
     public void salvarJogo(Jogo jogo) {
         jogosDAO.inserirJogo(jogo);

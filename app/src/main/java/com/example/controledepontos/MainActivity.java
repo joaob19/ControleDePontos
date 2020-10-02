@@ -30,11 +30,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Método responsavel por fazer uma ligação entre a tela dos jogos e então exibi-la ao usuário.
     public void ConsultarJogos(View view){
         Intent intent =  new Intent(MainActivity.this,Jogos.class);
         startActivity(intent);
     }
 
+    //Esse método é responsavel por carregar as estatísticas da temporadas na tela, buscando os objetos chave-valor nos arquivos locais do aplicativo..
     public void carregarEstatisticas(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.example.controledepontos", Context.MODE_PRIVATE);
         int minimo_temporada= sharedPreferences.getInt("minimo_temporada",0);
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         txt_quebra_recorde_maximo.setText(Integer.toString(quebra_recorde_maximo));
     }
 
+    //Esse método atualiza a tela toda vez que o usuário retornar para ela.
     @Override
     protected void onResume() {
         carregarEstatisticas();

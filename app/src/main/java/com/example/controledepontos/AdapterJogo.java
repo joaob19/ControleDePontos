@@ -11,18 +11,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-
+//Essa classe é responsável por coordenar como as informações de um objeto jogo serão exibidas na lista de jogos.
 public class AdapterJogo extends ArrayAdapter {
 
     Context context;
     ArrayList<Jogo> jogos;
-
+//Esse é o contrutor da classe que recebe como parâmetro um contexto e o ArrayList contendo os objetos Jogo.
     public AdapterJogo(Context context,ArrayList<Jogo> jogos) {
         super(context, R.layout.layout_jogo,jogos);
         this.context=context;
         this.jogos = new ArrayList<Jogo>(jogos);
     }
 
+    //Esse método ira dizer como e em que campos cada informação de um objeto Jogo será exibida.
+    //esse método relacionada cada objeto doArrayList com a respectivoa posição na lista de exibição, colocando-os na ordem que foram adicionados no banco.
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
